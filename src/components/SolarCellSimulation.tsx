@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Sun, Zap, Battery, Gauge } from 'lucide-react';
 import { calculateSolarCellOutput, MATERIAL_OPTIONS } from '../lib/solarCellCalculations';
+import SolarCellAnimation from './SolarCellAnimation';
+import SolarCellDiagram from './SolarCellDiagram';
 
 export default function SolarCellSimulation() {
   const [inputs, setInputs] = useState({
@@ -40,6 +42,19 @@ export default function SolarCellSimulation() {
         <div className="text-center mb-8">
           <h1 className="text-4xl font-bold text-gray-800 mb-2">Solar Cell Simulator</h1>
           <p className="text-gray-600">Explore how different parameters affect solar cell performance</p>
+        </div>
+
+        {/* Interactive Diagram */}
+        <div className="bg-white rounded-xl shadow-lg p-6 mb-8">
+          <h2 className="text-2xl font-semibold mb-6 text-gray-800">Visual Representation</h2>
+          <SolarCellDiagram 
+            incidentAngle={inputs.incidentAngle}
+            lightIntensity={inputs.lightIntensity}
+          />
+          <p className="text-sm text-gray-600 text-center mt-4">
+            The diagram shows how sunlight hits the solar panel at different angles.
+            The intensity of the beams represents the light intensity.
+          </p>
         </div>
 
         <div className="grid md:grid-cols-2 gap-8">
@@ -160,8 +175,14 @@ export default function SolarCellSimulation() {
                 <li>• Efficiency varies by material and conditions</li>
               </ul>
             </div>
-          </div>
+          </div> 
         </div>
+
+        {/*Animation*/}
+        <div className="flex justify-center bg-white rounded-xl shadow-lg p-6">
+          <SolarCellAnimation />
+        </div>
+
       </div>
     </div>
   );
