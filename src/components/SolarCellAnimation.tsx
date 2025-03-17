@@ -1,4 +1,6 @@
-//center the photon, scatter electron and hole...
+//Move electron, holes to be aligned. Increase of size of solar cell
+//Add more materials, shape
+//Add information as well... perhaps on different page ? 
 
 import React, { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
@@ -26,18 +28,18 @@ const SolarCellAnimation: React.FC = () => {
       'relative',
       'w-full',
       'max-w-md',
-      'h-96',
+      'h-100',
       'border-2',
       'border-gray-400',
       'rounded-lg',
       'overflow-hidden'
     );
-    solarCell.style.backgroundImage = 'https://drive.google.com/file/d/17QV5LBGixq4AHvrRx5fTHdNRwvpjam2i/view?usp=drive_link';
+    solarCell.style.backgroundImage = "url('/photoDiode.jpeg')";
     solarCell.style.backgroundSize = 'cover';
-    solarCell.style.backgroundPosition = 'center';
+    solarCell.style.backgroundPosition = '-10px -46px';
     solarCell.style.backgroundRepeat = 'no-repeat';
 
-    // Add p-n junction
+    /*// Add p-n junction
     const pnJunction = document.createElement('div');
     pnJunction.classList.add(
       'absolute',
@@ -65,7 +67,7 @@ const SolarCellAnimation: React.FC = () => {
       'border-black',
       'opacity-80'
     );
-    solarCell.appendChild(electricField);
+    solarCell.appendChild(electricField);*/
 
     // Start animation when isAnimating becomes true
     if (isAnimating) {
@@ -120,7 +122,7 @@ const SolarCellAnimation: React.FC = () => {
       'bg-red-500', // Red color for electron
       'rounded-full'
     );
-    const electronTop = Math.random() * 40 + 30; // Random top position between 30% and 70%
+    const electronTop = Math.random() * 5 + 5; // Random top position between 5% and 10%
     const electronLeft = Math.random() * 30 + 10; // Random left position between 10% and 40%
     electron.style.top = `${electronTop}%`;
     electron.style.left = `${electronLeft}%`;
