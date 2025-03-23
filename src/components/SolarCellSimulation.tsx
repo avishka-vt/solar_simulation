@@ -179,9 +179,26 @@ export default function SolarCellSimulation() {
         </div>
 
         {/*Animation*/}
-        <div className="flex justify-center bg-white rounded-xl shadow-lg p-6">
-          <SolarCellAnimation />
+        <div className="bg-white rounded-xl shadow-lg p-6 mb-8">
+          <h2 className="text-2xl font-semibold mb-6 text-gray-800">PhotoDiode Working</h2>
+          <div className="w-full h-96 relative">
+            <SolarCellAnimation />
+          
+            <p className="text-sm text-gray-600 text-center mt-4">
+            The diagram shows how sunlight hits the solar panel at different angles.
+            The intensity of the beams represents the light intensity.
+            </p>
+          </div>
         </div>
+{/*
+        <div className="flex flex-col items-center bg-white rounded-xl shadow-lg p-6">
+          <h2 className="text-2xl font-semibold mb-6 text-gray-800">PhotoDiode Working</h2>
+          <div className="w-full max-w-md h-96 rounded-lg overflow-hidden">
+            <SolarCellAnimation />
+          </div>
+        </div>
+*/}
+         
 
       </div>
     </div>

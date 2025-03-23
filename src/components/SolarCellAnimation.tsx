@@ -28,7 +28,7 @@ const SolarCellAnimation: React.FC = () => {
       'relative',
       'w-full',
       'max-w-md',
-      'h-100',
+      'h-40',
       'border-2',
       'border-gray-400',
       'rounded-lg',
@@ -36,8 +36,17 @@ const SolarCellAnimation: React.FC = () => {
     );
     solarCell.style.backgroundImage = "url('/photoDiode.jpeg')";
     solarCell.style.backgroundSize = 'cover';
-    solarCell.style.backgroundPosition = '-10px -46px';
+    solarCell.style.backgroundPosition = '5px -40px';
     solarCell.style.backgroundRepeat = 'no-repeat';
+    
+    const overlay = document.createElement('div');
+    overlay.style.position = 'absolute';
+    overlay.style.top = '0';
+    overlay.style.left = '0';
+    overlay.style.width = '100%';
+    overlay.style.height = '100%';
+    overlay.style.backgroundColor = 'rgba(255, 255, 255, 0.3)'; // White with 50% opacity
+    solarCell.appendChild(overlay);
 
     /*// Add p-n junction
     const pnJunction = document.createElement('div');
@@ -87,7 +96,8 @@ const SolarCellAnimation: React.FC = () => {
       'rounded-full'
     );
     photon.style.top = '-10px';
-    photon.style.left = `${Math.random() * 100}%`;
+    const photonLeft = Math.random() * 35 + 30;
+    photon.style.left = `${photonLeft}%`;
     solarCell.appendChild(photon);
     console.log(`Photon ${index} created:`, photon);
 
@@ -122,8 +132,8 @@ const SolarCellAnimation: React.FC = () => {
       'bg-red-500', // Red color for electron
       'rounded-full'
     );
-    const electronTop = Math.random() * 5 + 5; // Random top position between 5% and 10%
-    const electronLeft = Math.random() * 30 + 10; // Random left position between 10% and 40%
+    const electronTop = Math.random() * 10 + 45; // Random top position between 50% and 45%
+    const electronLeft = Math.random() * 25 + 30; // Random left position between 65% and 40%
     electron.style.top = `${electronTop}%`;
     electron.style.left = `${electronLeft}%`;
     solarCell.appendChild(electron);
@@ -138,24 +148,86 @@ const SolarCellAnimation: React.FC = () => {
       'bg-blue-500', // Blue color for hole
       'rounded-full'
     );
-    const holeTop = Math.random() * 40 + 30; // Random top position between 30% and 70%
-    const holeLeft = Math.random() * 30 + 60; // Random left position between 60% and 90%
+    const holeTop = Math.random() * 40 + 30; // Random top position between 70% and 40%
+    const holeLeft = Math.random() * 25 + 30; // Random left position between 65% and 40%
     hole.style.top = `${holeTop}%`;
     hole.style.left = `${holeLeft}%`;
     solarCell.appendChild(hole);
     console.log('Hole created:', hole);
 
+    const consolidationPoint = { top: '50%', left: '30%' };
+
     // Animate electron and hole movement due to electric field
     gsap.to(electron, {
       duration: 1.5,
-      top: '80%',
+      top: '75%',
       ease: 'power1.inOut',
+      onComplete: () => {
+        // Continue animation to follow the wire and enter the load
+        gsap.to(electron, {
+          duration: 0.5,
+          top: '75%',
+          left: consolidationPoint.left,
+          ease: 'power1.inOut',
+          onComplete: () => {
+            gsap.to(electron, {
+              duration: 0.5,
+              y: 30, // Move electron vertically along the wire
+              onComplete: () => {
+                gsap.to(electron, {
+                  duration: 0.5,
+                  x: -50,
+                  onComplete: () => {
+                    gsap.to(electron, {
+                      duration: 1,
+                      y: -45,
+                      onComplete: () => {
+                        console.log('Electron entered the load');
+                      },
+                    });
+                  },
+                });
+              },
+            });
+          },
+        });
+      },
     });
 
     gsap.to(hole, {
       duration: 1.5,
-      top: '20%',
+      top: '35%',
       ease: 'power1.inOut',
+      onComplete: () => {
+        // Continue animation to follow the wire and enter the load
+        gsap.to(hole, {
+          duration: 0.5,
+          top: '35%',
+          left: consolidationPoint.left,
+          ease: 'power1.inOut',
+          onComplete: () => {
+            gsap.to(hole, {
+              duration: 0.5,
+              y: -36, // Move hole vertically along the wire
+              onComplete: () => {
+                gsap.to(hole, {
+                  duration: 0.5,
+                  x: -50,
+                  onComplete: () => {
+                    gsap.to(hole, {
+                      duration: 1,
+                      y: 20,
+                      onComplete: () => {
+                        console.log('hole entered the load');
+                      },
+                    });
+                  },
+                });
+              },
+            });
+          },
+        });
+      },
     });
     
     
@@ -185,7 +257,9 @@ const SolarCellAnimation: React.FC = () => {
       </div>
 
       {/* Solar cell container */}
-      <div ref={containerRef} className="flex justify-center mb-4"></div>
+      <div className="flex items-center justify-center h-100">
+      <div ref={containerRef} className="w-full max-w-md h-40 border-2 border-gray-400 rounded-lg overflow-hidden"></div>
+    </div>
 
        {/* Legend at the bottom */}
        <div className="flex justify-center">
@@ -203,10 +277,6 @@ const SolarCellAnimation: React.FC = () => {
             <div className="flex items-center gap-2">
               <div className="w-4 h-4 bg-blue-500 rounded-full"></div>
               <span className="text-sm text-gray-700">Electron</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="w-4 h-1 bg-black"></div>
-              <span className="text-sm text-gray-700">p-n Junction</span>
             </div>
           </div>
         </div>
