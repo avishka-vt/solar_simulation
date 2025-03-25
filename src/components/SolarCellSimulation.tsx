@@ -185,8 +185,7 @@ export default function SolarCellSimulation() {
             <SolarCellAnimation />
           
             <p className="text-sm text-gray-600 text-center mt-4">
-            The diagram shows how sunlight hits the solar panel at different angles.
-            The intensity of the beams represents the light intensity.
+            The diagram show the inner working of a photodiode.
             </p>
           </div>
         </div>
