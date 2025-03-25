@@ -22,8 +22,8 @@ Comprehensive page on the four generations of photovoltaic cells, including mate
 To run this project locally, follow these steps:
 1. Clone repository
 ```bash
-git clone https://github.com/avishka-vt/simulation.git
-cd reactive-solar-cell-simulation
+git clone https://github.com/avishka-vt/solar_simulation
+cd solar_simulation
 ```
 2. Install dependancies
 ```bash
